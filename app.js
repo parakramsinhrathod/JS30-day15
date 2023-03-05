@@ -31,14 +31,16 @@ function populateList(plates = [], platesList){
 }
 
 function toggleDone(e){
-
+    if(!e.target.matches('input')) return
+    const el = e.target
+    const index = el.dataset.index
+    items[index].done =!items[index].done
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, intemsList)
 }
-populateList(items, intemsList)
-const checkBoxes = document.querySelectorAll('input')
 
-checkBoxes.forEach(input => input.addEventListener('click', () => {
-    alert('clicked')
-}))
 
 
 addItems.addEventListener('submit', addItem)
+intemsList.addEventListener('click',toggleDone)
+populateList(items, intemsList)
